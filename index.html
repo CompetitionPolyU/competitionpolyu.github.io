@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge Website</title>
+<style>
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    
+    thead th {
+        background-color: #f2f2f2;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    tbody tr:hover {
+        background-color: #eaeaea;
+    }
+    
+    
+    ul {
+        list-style-type: none; /* 去掉默认的列表符号 */
+        padding: 0; /* 去掉默认的内边距 */
+        font-family: Arial, sans-serif; /* 设置字体 */
+    }
+
+    li {
+        margin-bottom: 10px; /* 设置列表项之间的间距 */
+        padding-left: 4ch; /* 使用字符单位ch来模拟两个空格的缩进 */
+    }
+
+    li:before {
+        content: '• '; /* 在每个列表项前添加一个点 */
+        color: #333; /* 点的颜色 */
+        font-weight: bold; /* 点的字体加粗 */
+        display: inline-block; /* 使其成为行内块元素 */
+        width: 1em; /* 设置宽度 */
+        margin-left: -1em; /* 将点向左拉，与文本对齐 */
+    }
+  
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .accordion:after {
+        content: '\002B'; /* Unicode character for "plus" sign (+) */
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212"; /* Unicode character for "minus" sign (-) */
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+</style>
+</head>
+<body>
+
+<h2>IEEE BigData 2024 Cup: Suicide ideation detection on social media</h2>
+
+<button class="accordion">Overview</button>
+<div class="panel">
+  <p>The topic of this year's data science competition is suicide risk detection from Reddit posts. The dataset contains 2,000 Reddit posts, with 500 posts labeled with four suicide risk levels (indicator, ideation, behavior, attempt) and 1,500 unlabeled posts. Each post is represented by its text content, and the task for the competition participants is to develop a predictive model that can accurately classify the posts into the four suicide risk levels based on the posts. Such a model could play a crucial role in identifying individuals at risk of suicide and providing timely intervention and support.
+  
+  Authors of selected challenge reports will be invited to extend their work for publication in the conference proceedings (after reviews by the Organizing Committee) and presentation at the conference. The invited teams will be chosen based on their final rank, the innovativeness of their approach, and the quality of the submitted report.
+  </p>
+</div>
+
+<button class="accordion">Task description</button>
+<div class="panel">
+  <p>The task in this challenge is to design an accurate method for classifying Reddit posts into four suicide risk levels: indicator, ideation, behavior, and attempt. The available training data contains 300 instances (Reddit posts) with labeled suicide risk levels and 1500 unlabeled Reddit posts. Each instance represents a Reddit post, and the text content of the post is provided. The test data containing 100 instances is also provided in the same format.
+  Solutions in this competition should be submitted to the online evaluation system as a CSV file with exactly 100 lines containing predictions for the test instances. Each line in the submission should contain a single label from the set {indicator, ideation, behavior, attempt} that indicates the predicted suicide risk level for the corresponding Reddit post. The ordering of predictions should be the same as the ordering of the test set.
+</p>
+</div>
+
+<button class="accordion">Submission</button>
+<div class="panel">
+  <p>Please email us your predicted results in a CSV file format. Upon receipt, we will update your results on the Leaderboard. The required format is as follows:
+      <ul>
+      <li>Team name:</li>
+      <li>Email Address:</li>
+      <li>Weighted-F1 score:</li>
+      </ul>
+  </p>
+</div>
+
+
+<button class="accordion">Leaderboard</button>
+<div class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Team Name</th>
+        <th>Preliminary Score</th>
+        <th>Final Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>...</td>
+        <td>...</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+<button class="accordion">Schedule</button>
+<div class="panel">
+  <p>
+  <ul>
+  <li> Data Release, Platform setup and solicitation of challenge participants, May 1, 2024</li>
+  <li> Deadline for contest teams to submit letter of intent, June 10, 2024</li>
+  <li> Deadline for contest teams to submit final report and solutions, November 10, 2024</li>
+  <li> Announcement of winning teams, Nov 25, 2024 </li>
+  </ul>
+  </p>
+</div>
+
+<button class="accordion">Awards</button>
+<div class="panel">
+  <p>Attractive cash prizes will be awarded to the top-performing teams.
+  <ul>
+    <li>1000 USD for the winning solution</li>
+    <li>500 USD for the 2nd place solution</li>
+    <li>250 USD for the 3rd place solution</li>
+    </ul>
+  </p>
+</div>
+
+<button class="accordion">Enroll</button>
+<div class="panel">
+  <p>Once you have agreed to the Terms & Conditions, please email us with your team's information:
+    <ul>
+        <li>Team name.</li>
+        <li>List of Team Members with Affiliations.</li>
+        <li>Contact Person and Email Address.</li>
+    </ul>
+  We will respond to your inquiry and send you the dataset.
+  </p>
+</div>
+
+<button class="accordion">Organizing committee</button>
+<div class="panel">
+  <p>
+  <ul>
+    <li>Prof. Li Qing, The Hong Kong Polytechnic University</li>
+    <li>Dr. Hong Va Leong, The Hong Kong Polytechnic University</li>
+    <li>Li Jun, The Hong Kong Polytechnic University</li>
+    <li>Wang Xiangmeng, University of Technology Sydney</li>
+    <li>Yan Yifei, City University of Hong Kong</li>
+    <li>Zhang Ziyan, The Hong Kong Polytechnic University</li>
+    </ul>
+  </p>
+</div>
+
+<button class="accordion">Contact</button>
+<div class="panel">
+  <p> 21118786r@connect.polyu.hk </p>
+</div>
+
+<!-- Repeat for each section like Leaderboard, Task description, etc. -->
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
