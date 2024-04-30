@@ -217,7 +217,7 @@ document.getElementById('uploadForm').onsubmit = function(event) {
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
 
-    fetch('http://116.62.169.41:5001/upload', {
+    fetch('http://116.62.169.41:5002/upload', {
         method: 'POST',
         body: formData,
     })
