@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge Website</title>
+<style>
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    
+    thead th {
+        background-color: #f2f2f2;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    tbody tr:hover {
+        background-color: #eaeaea;
+    }
+    
+    
+    ul {
+        list-style-type: none; /* 去掉默认的列表符号 */
+        padding: 0; /* 去掉默认的内边距 */
+        font-family: Arial, sans-serif; /* 设置字体 */
+    }
+
+    li {
+        margin-bottom: 10px; /* 设置列表项之间的间距 */
+        padding-left: 4ch; /* 使用字符单位ch来模拟两个空格的缩进 */
+    }
+
+    li:before {
+        content: '• '; /* 在每个列表项前添加一个点 */
+        color: #333; /* 点的颜色 */
+        font-weight: bold; /* 点的字体加粗 */
+        display: inline-block; /* 使其成为行内块元素 */
+        width: 1em; /* 设置宽度 */
+        margin-left: -1em; /* 将点向左拉，与文本对齐 */
+    }
+  
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .accordion:after {
+        content: '\002B'; /* Unicode character for "plus" sign (+) */
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212"; /* Unicode character for "minus" sign (-) */
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    
+    /* Style for clickable terms */
+    .clickable {
+        text-decoration: underline;
+        color: #0645AD; /* Example color: hyperlink blue */
+        cursor: pointer;
+        padding: 3px; /* Increase clickable area */
+    }
+
+    /* Styles for the modal background and content */
+    .modal-bg {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black with opacity */
+        padding-top: 100px; /* Location of the box */
+    }
+    
+    /* Modal Content Box with scroll */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-height: 50vh; /* 70% of the viewport height */
+        overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+    }
+    
+    <!--
+    /* Modal Content Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+    -->
+
+    /* The Close Button */
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Disabled button style */
+    .button-disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+
+</style>
+</head>
+<body>
+
+<h2>IEEE BigData 2024 Cup: Suicide ideation detection on social media</h2>
+<p>
+The IEEE BigData 2024 Cup Challenges, centered on suicide ideation detection, is an important activity that has been held annually since 2013 under the auspices of the IEEE International Conference on Big Data (https://bigdataieee.org/BigData2024/index.html). This competition will span several months, culminating with the announcement of the winners at the IEEE BigData 2024 conference, scheduled for December 15-18, 2024, in Washington DC, USA. Commemorating this milestone anniversary, the challenge is centered around social media activity; specifically, participants are tasked with detecting the level of suicide risk associated with posts made by users on these platforms. This endeavor highlights the growing significance of big data in mental health and the crucial role of predictive analytics in proactive intervention strategies.
+</p>
+<button class="accordion">Overview</button>
+<div class="panel">
+  <p>The topic of this year's data science competition is suicide risk detection from Reddit posts. The dataset contains 2,000 Reddit posts, with 500 posts labeled with four suicide risk levels (indicator, ideation, behavior, attempt) and 1,500 unlabeled posts. Each post is represented by its text content, and the task for the competition participants is to develop a predictive model that can accurately classify the posts into the four suicide risk levels based on the posts. Such a model could play a crucial role in identifying individuals at risk of suicide and providing timely intervention and support.
+  <br>
+  <br>Authors of selected challenge reports will be invited to extend their work for publication in the conference proceedings (after reviews by the Organizing Committee) and presentation at the conference. The invited teams will be chosen based on their final rank, the innovativeness of their approach, and the quality of the submitted report.
+  </p>
+</div>
+
+<button class="accordion">Task description</button>
+<div class="panel">
+  <p>The task in this challenge is to design an accurate method for classifying Reddit posts into four suicide risk levels: indicator, ideation, behavior, and attempt. The available training data contains 500 instances (Reddit posts) with labeled suicide risk levels and 1500 unlabeled Reddit posts. Each instance represents a Reddit post, and the text content of the post is provided. The test data containing 100 instances is also provided in the same format.
+  <br>  
+  <br><strong>Leaderboard:</strong> The quality of predictions will be evaluated using the weighted F1 score, which considers both precision and recall while accounting for the class imbalance. Preliminary results will be published or updated on the public leaderboard each morning. 
+  <br>
+  <br>Please submit your predictions for the test set as a .xlsx file containing exactly 100 rows via <Strong>prediction file submission section</Strong>, each with a predictive label and its associated probability distribution (e.g., [0.62, 0.29, 0.04, 0.05]). The submission should include two columns per row: 1. The predicted suicide risk level label (chosen from {indicator, ideation, behavior, attempt}), and 2. The probability distribution corresponding to this prediction. Ensure that the order of your predictions matches the order of the test set instances. Here is an example:
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th>suicide risk</th>
+        <th>probability distribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ideation</td>
+        <td>[0.62, 0.29, 0.04, 0.05]</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+
+  <br><strong>Final evaluation:</strong> The final evaluation will be conducted after the competition ends, at a time to be announced later, using a new set of 100 posts. The evaluation will still utilize the weighted F1 score. Only teams that submit their source code and a report describing their approach by the deadline will qualify for the final evaluation. Reports and source code will be submitted via Google Drive or Baidu Drive. We will notify you in advance by email about the submission instructions.
+</p>
+</div>
+
+<button class="accordion">Prediction file submission</button>
+<div class="panel">
+<p> Please submit the prediction file created by your team. Multiple submissions are permitted. The file format should be .xlsx, and the file name must be: YourTeamName.xlsx. For a detailed explanation of the content in your prediction file, please refer to the 'Task Description' section.
+</p>
+<form id="uploadForm">
+    <input type="file" id="fileInput" name="file" required>
+    <button type="submit">Upload</button>
+</form>
+
+<p>
+
+</div>
+
+<script>
+document.getElementById('uploadForm').onsubmit = function(event) {
+    event.preventDefault();
+
+    const fileInput = document.getElementById('fileInput');
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    fetch('https://21qd099261.vicp.fun/upload', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
+    .then(data => {
+        console.log(data);
+        alert('File uploaded successfully!');
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        alert('Error uploading file.');
+    });
+};
+</script>
+
+
+<button class="accordion">Leaderboard</button>
+<div class="panel">
+<p>
+</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Team Name</th>
+        <th>Preliminary Score</th>
+        <th>Final Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>...</td>
+        <td>...</td>
+        <td>N/A</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+<p>
+</p>
+</div>
+
+<button class="accordion">Schedule</button>
+<div class="panel">
+  <p>
+  <ul>
+  <li> Dataset available, May 1, 2024</li>
+  <li> Deadline for contest teams to submit letter of intent, June 10, 2024</li>
+  <li> Deadline for contest teams to submit final report and solutions, November 10, 2024</li>
+  <li> Announcement of winning teams, Nov 25, 2024 </li>
+  </ul>
+  </p>
+</div>
+
+<button class="accordion">Awards</button>
+<div class="panel">
+  <p>Attractive cash prizes will be awarded to the top-performing teams.
+  <ul>
+    <li>1000 USD for the winning solution</li>
+    <li>500 USD for the 2nd place solution</li>
+    <li>250 USD for the 3rd place solution</li>
+    </ul>
+  </p>
+</div>
+
+<button class="accordion">Enroll</button>
+<div class="panel">
+<p>
+Once you have accepted the Data Usage Agreement, please send us your team's information in the following format via email. We will respond to your inquiry and provide you with the dataset:
+<ul>
+<li>Team name.</li>
+<li>List of Team Members with Affiliations.</li>
+<li>Contact Person and Email Address.</li>
+</ul>
+</p>
+<div style="display: flex; align-items: center; margin-top: 20px;">
+    <input type="checkbox" id="termsCheckbox" name="termsCheckbox" style="margin-right: 10px;">
+    <label for="termsCheckbox">We accept Competition <span class="clickable" onclick="openModal()">Terms & Conditions</span>*</label>
+</div>
+
+<!-- Enroll Button -->
+<button id="enrollButton" disabled style="margin-top: 20px;" onclick="openEnrollModal()">Enroll</button>
+<p>
+</p>
+<!-- Terms & Conditions Modal -->
+<div id="myModal" class="modal-bg">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h1>Terms & Conditions</h1>
+        <p>In consideration of the promises and mutual covenants contained in this Agreement, Recipient agree to the terms and conditions below.
+        <br>
+		<br>Article 1. Data Set and Grant of License
+        <br>
+		<br>1.1 The Dataset has been compiled by members of The Hong Kong Polytechnic University and comprises publicly available data from Reddit with the purpose of detecting users at suicide risk.
+		<br>
+		<br>1.2 The Hong Kong Polytechnic University grants Recipient a non-exclusive license to use the Data Set solely for not-for-profit educational and/or research purposes. Uses of the Data Set include, but are not limited, to viewing parts or the whole of the Data Set; comparing data or content from the Data Set with data or content in other data sets; verifying research results with the Data Set; and extracting any part of the Data Set for use in Recipient publications or Recipient research in accordance with the terms of this Agreement.
+		<br>
+		<br>Article 2. Recipient Representations
+		<br>
+		<br>2.1 Recipient represents that it is not bound by any pre-existing legal obligations or other applicable law(s) that prevent Recipient from receiving or using the Data Set.
+		<br>
+		<br>2.2 Recipient shall provide proper citation and acknowledgement to The Hong Kong Polytechnic University as the source of the Data Set in Recipient publications, presentations or other public dissemination of work utilizing the Data Set.
+		<br>
+		<br>@article{li2022suicide,
+        <br>title={Suicide risk level prediction and suicide trigger detection: A benchmark dataset},
+        <br>author={Li, Jun and Chen, Xinhong and Lin, Zehang and Yang, Kaiqi and Leong, Hong Va and Yu, Nancy Xiaonan and Li, Qing},
+        <br>journal={HKIE Transactions Hong Kong Institution of Engineers},
+        <br>volume={29},
+        <br>number={4},
+        <br>pages={268--282},
+        <br>year={2022},
+        <br>publisher={Taylor \& Francis}
+        <br>}
+		<br>
+		<br>2.3 Recipient shall use Data Set for non-commercial, educational and/or research purposes only.
+		<br>
+		<br>2.4 Recipient shall provide The Hong Kong Polytechnic University with immediate notice in writing of any breach of this Agreement, and if identification of any user in the Data Set becomes known to Recipient, Recipient shall also immediately use its reasonable best efforts to mitigate any harm or damage from such breach.
+		<br>
+		<br>Article 3. Recipient Restrictions
+		<br>
+		<br>3.1 Recipient shall not deduce or obtain information from the Data Set that results in Recipient or any third party(ies) directly or indirectly identifying any research subjects with or without the aid of other information acquired elsewhere.
+		<br>
+		<br>3.2 Recipient shall not use the Data Set in any way prohibited by applicable local, state or federal laws.
+		<br>
+		<br>3.3 Recipient shall not modify the Data Set, except as allowed hereunder.
+		<br>
+		<br>3.4 Recipient shall not transfer any part of the Data Set to any third party without prior written consent from The Hong Kong Polytechnic University.
+		<br>
+		<br>3.5 Recipient shall not make or use the Data Set for any commercial purpose.</p>
+    </div>
+</div>
+
+<!-- Enroll Email Modal -->
+<div id="enrollEmailModal" class="modal-bg">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEnrollModal()">&times;</span>
+        <p>Registration email address: <a href="mailto:enroll@example.com">hialexlee@hotmail.com</a></p>
+    </div>
+</div>
+</div>
+
+<script>
+    // Get the modals
+    var termsModal = document.getElementById('myModal');
+    var enrollEmailModal = document.getElementById('enrollEmailModal');
+    var enrollButton = document.getElementById('enrollButton');
+    var termsCheckbox = document.getElementById('termsCheckbox');
+
+    // Function to open the terms modal
+    function openModal() {
+        termsModal.style.display = "block";
+    }
+
+    // Function to close the terms modal and uncheck the checkbox
+    function closeModal() {
+        termsModal.style.display = "none";
+        termsCheckbox.checked = false; // Uncheck the checkbox when the modal is closed
+        enrollButton.disabled = true; // Disable the enroll button
+        enrollButton.classList.add('button-disabled'); // Add the disabled button styling
+    }
+
+    // Function to open the enroll email modal
+    function openEnrollModal() {
+        if (termsCheckbox.checked) {
+            enrollEmailModal.style.display = "block";
+        }
+    }
+
+    // Function to close the enroll email modal and uncheck the checkbox
+    function closeEnrollModal() {
+        enrollEmailModal.style.display = "none";
+        termsCheckbox.checked = false; // Uncheck the checkbox when the modal is closed
+        enrollButton.disabled = true; // Disable the enroll button
+        enrollButton.classList.add('button-disabled'); // Add the disabled button styling
+    }
+
+    // Enable or Disable Enroll button based on Terms Checkbox
+    termsCheckbox.addEventListener('change', function() {
+        enrollButton.disabled = !this.checked;
+        if (this.checked) {
+            enrollButton.classList.remove('button-disabled');
+        } else {
+            enrollButton.classList.add('button-disabled');
+        }
+    });
+
+    // Click anywhere outside of the modals to close them
+    window.onclick = function(event) {
+        if (event.target == termsModal) {
+            closeModal();
+        } else if (event.target == enrollEmailModal) {
+            closeEnrollModal();
+        }
+    }
+</script>
+
+
+<button class="accordion">Organizing committee</button>
+<div class="panel">
+  <p>
+  <ul>
+    <li>Prof. Li Qing, The Hong Kong Polytechnic University</li>
+    <li>Dr. Hong Va Leong, The Hong Kong Polytechnic University</li>
+    <li>Li Jun, The Hong Kong Polytechnic University</li>
+    <li>Wang Xiangmeng, University of Technology Sydney</li>
+    <li>Yan Yifei, City University of Hong Kong</li>
+    <li>Zhang Ziyan, The Hong Kong Polytechnic University</li>
+    </ul>
+  </p>
+</div>
+
+<button class="accordion">Contact</button>
+<div class="panel">
+  <p> For registration inquiries, contact Zhang Ziyan at ariana.zhang@connect.polyu.hk </p>
+  <p> For inquiries about competition rankings, contact Yan Yifei at yfyan8-c@my.cityu.edu.hk </p>
+  <p> For other inquiries, contact Alex at hialexlee@hotmail.com </p>
+</div>
+
+
+<button class="accordion">FAQ</button>
+<div class="panel">
+  <p> ... </p>
+  <p> ... </p>
+</div>
+
+<!-- Repeat for each section like Leaderboard, Task description, etc. -->
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
