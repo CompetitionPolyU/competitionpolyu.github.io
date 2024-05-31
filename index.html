@@ -200,15 +200,15 @@ The IEEE BigData 2024 Cup Challenges, centered on suicide ideation detection, is
 
 <button class="accordion">Prediction file submission</button>
 <div class="panel">
-<p> Please submit the prediction file created by your team. Multiple submissions are permitted. The file format should be .xlsx, and the file name must be: YourTeamName.xlsx. The scores of the uploaded prediction results will be updated on the leaderboard the following day. For a detailed explanation of the content in your prediction file, please refer to the 'Task Description' section.
+<p>
+    Please submit the prediction file created by your team. Multiple submissions are permitted. The file format should be .xlsx, and the file name must be: YourTeamName.xlsx. The scores of the uploaded prediction results will be updated on the leaderboard the following day. For a detailed explanation of the content in your prediction file, please refer to the 'Task Description' section.
 </p>
 <form id="uploadForm">
     <input type="file" id="fileInput" name="file" required>
     <button type="submit">Upload</button>
 </form>
-
-<p>
-
+<progress id="uploadProgress" value="0" max="100" style="width: 100%; display: none;"></progress>
+<p id="progressText" style="text-align: center;"></p>
 </div>
 
 <script>
@@ -219,25 +219,42 @@ document.getElementById('uploadForm').onsubmit = function(event) {
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
 
-    fetch('https://21qd099261.vicp.fun/upload', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('Network response was not ok.');
+    const progress = document.getElementById('uploadProgress');
+    const progressText = document.getElementById('progressText');
+    progress.style.display = 'block';
+    progress.value = 0;
+    progressText.innerText = 'Uploading...';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://21qd099261.vicp.fun/upload', true);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            const percentComplete = (event.loaded / event.total) * 100;
+            progress.value = percentComplete;
+            progressText.innerText = `Upload progress: ${percentComplete.toFixed(2)}%`;
         }
-    })
-    .then(data => {
-        console.log(data);
-        alert('File uploaded successfully!');
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
+    };
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert('File uploaded successfully!');
+            progress.style.display = 'none';
+            progressText.innerText = '';
+        } else {
+            alert('Error uploading file.');
+            progress.style.display = 'none';
+            progressText.innerText = '';
+        }
+    };
+
+    xhr.onerror = function() {
         alert('Error uploading file.');
-    });
+        progress.style.display = 'none';
+        progressText.innerText = '';
+    };
+
+    xhr.send(formData);
 };
 </script>
 
