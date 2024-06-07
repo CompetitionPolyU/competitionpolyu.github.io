@@ -204,8 +204,6 @@
             border-radius: 0 0 8px 8px;
         }
 
-
-
 </style>
 </head>
 <body>
@@ -539,31 +537,52 @@ Once you have accepted the Data Usage Agreement, please send us your team's info
 </div>
 
 
+<!-- FAQ Section -->
 <button class="accordion">FAQ</button>
 <div class="panel">
-  <p> Q: On the challenge website it says "Deadline for contest teams to submit letter of intent, June 10, 2024". I could, however, not find a draft/template for the letter of intent. </p>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;A: Participants do not need to submit a letter of intent. To register, simply send us an email by June 10, 2024. Once you receive the dataset link, your registration is confirmed. </p>
-  <p> Q: I uploaded our team's predictions to the challenge website earlier today, but the leaderboard score hasn't been updated yet. </p>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;A: We typically update the leaderboard daily. If you have any concerns, please notify us by email, and we will update the score on the leaderboard immediately. </p>
+    <div class="faq-item">
+        <div class="faq-question">Q: On the challenge website it says "Deadline for contest teams to submit letter of intent, June 10, 2024". I could, however, not find a draft/template for the letter of intent.</div>
+        <div class="faq-answer" style="display: none;">A: Participants do not need to submit a letter of intent. To register, simply send us an email by June 10, 2024. Once you receive the dataset link, your registration is confirmed.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Q: I uploaded our team's predictions to the challenge website earlier today, but the leaderboard score hasn't been updated yet.</div>
+        <div class="faq-answer" style="display: none;">A: We typically update the leaderboard daily. If you have any concerns, please notify us by email, and we will update the score on the leaderboard immediately.</div>
+    </div>
 </div>
 
-<!-- Repeat for each section like Leaderboard, Task description, etc. -->
-
 <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+document.querySelectorAll('.accordion').forEach((accordion) => {
+    accordion.addEventListener('click', function() {
+        this.classList.toggle('active');
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            // 设置maxHeight为scrollHeight可以确保内容完全可见
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+});
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    }
-  });
-}
+// 处理FAQ问题的点击事件，确保不影响Accordion的行为
+document.querySelectorAll('.faq-question').forEach((faqQuestion) => {
+    faqQuestion.addEventListener('click', (event) => {
+        event.stopPropagation(); // 阻止事件冒泡
+
+        const faqAnswer = faqQuestion.nextElementSibling;
+        faqAnswer.style.display = (faqAnswer.style.display === 'block' ? 'none' : 'block');
+
+        // 重新计算整个panel的高度以适应内容的变化
+        const panel = faqQuestion.closest('.panel');
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            // 必须在下一帧中重新设置maxHeight，以确保动态内容的高度变化被计算
+            setTimeout(() => {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }, 0);
+        }
+    });
+});
 </script>
 
 </body>
