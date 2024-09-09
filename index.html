@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE BigData 2024@suicide detection on social media Competition Summary Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #2c3e50;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>IEEE BigData 2024@suicide detection on social media Competition Summary Report</h1>
+
+    <h2>1. Competition Background</h2>
+    <p>The IEEE BigData 2024@suicide detection on social media competition aims to leverage advanced natural language processing and machine learning techniques to detect suicide risk on social media. The core objective of this challenge is to develop models capable of accurately classifying the level of suicide risk in social media posts. The competition provided a dataset containing 500 labeled samples and 1500 unlabeled samples, requiring participants to address issues such as data scarcity and class imbalance while exploring the effectiveness of various model architectures.</p>
+
+    <h2>2. Participation Overview</h2>
+    <ul>
+        <li>Number of registered teams: 47</li>
+        <li>Number of teams participating in the leaderboard: 21</li>
+        <li>Number of teams participating in the final evaluation: 13</li>
+        <li>Number of teams invited to submit papers: 8</li>
+    </ul>
+
+    <h2>3. Summary of Submitted Papers</h2>
+    <h3>a) Methods for utilizing limited labeled data (500 samples) and unlabeled data (1500 samples):</h3>
+    <ul>
+        <li>Semi-supervised learning methods (pseudo-labels)</li>
+        <li>Manual annotation</li>
+        <li>Data augmentation</li>
+    </ul>
+
+    <h3>b) Strategies for addressing dataset label imbalance:</h3>
+    <ul>
+        <li>Oversampling/undersampling techniques</li>
+        <li>Class weight adjustment</li>
+        <li>Custom loss function design</li>
+    </ul>
+
+    <h3>c) Model selection and optimization:</h3>
+    <table>
+        <tr>
+            <th>Model Type</th>
+            <th>Number of Teams</th>
+            <th>Main Models</th>
+        </tr>
+        <tr>
+            <td>Traditional Models</td>
+            <td>11</td>
+            <td>BERT, RoBERTa, DeBERTa, mental-longformer, SVM…</td>
+        </tr>
+        <tr>
+            <td>Large Language Models</td>
+            <td>5</td>
+            <td>GPT-4o, Phi 3.5, Qwen2-max, Claude-3.5-Sonnet, bloomz-3b, Qwen2-72B-Instruct, Llama3-8B, Llama3.1-8B, Gemma2-9B, GPT-4, GPT-4-mini, GPT-4-turbo, LLaMA 3.1-8B, GEMMA 2-9B</td>
+        </tr>
+    </table>
+
+    <h3>LLMs Used:</h3>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Model</th>
+        </tr>
+        <tr>
+            <td>Prompt engineering (in-context learning)</td>
+            <td>GPT-4o, Qwen2-72B-Instruct, Qwen2-max, Claude-3.5-Sonnet, GPT-4, GPT-4-mini, GPT-4-turbo</td>
+        </tr>
+        <tr>
+            <td>Finetune</td>
+            <td>Llama3-8B, Llama3.1-8B, Gemma2-9B, LLaMA 3.1-8B, GEMMA 2-9B, GEMMA 2-27B (less effective), Llama3-8B</td>
+        </tr>
+    </table>
+
+    <div class="highlight">
+        <h3>Preliminary Conclusions:</h3>
+        <p>Large Models vs Traditional Models: Among large models, open-source Llama is the most popular, followed by Gemma2. Commercial models are dominated by GPT-4. Traditional approaches primarily use RoBERTa-based models. Based on the results submitted by several teams, large models can achieve good performance with fewer improvements, suggesting a higher performance floor. However, due to limited improvement methods for large models, combining large models with traditional models offers more room for innovation. Ultimately, regardless of the approach, achieving good results requires novel and well-designed improvements.</p>
+    </div>
+
+    <h3>Large Model Improvement Strategies:</h3>
+    <ol>
+        <li>In-context learning</li>
+        <li>Finetuning</li>
+    </ol>
+
+    <h2>4. Core Challenges and Future Outlook</h2>
+    <h3>Core Challenges:</h3>
+    <ol>
+        <li>Data Scarcity: Difficulty in obtaining high-quality, large-scale annotated data.</li>
+        <li>Class Imbalance: Uneven distribution of different risk levels of suicidal behavior in reality.</li>
+        <li>Subtlety and Context Dependence of Text: Suicidal intent may be expressed in subtle or indirect ways.</li>
+        <li>Cross-cultural and Linguistic Differences: Expression of suicidal thoughts may vary across cultures and languages.</li>
+    </ol>
+
+    <h3>Future Competition Design:</h3>
+    <ol>
+        <li>Multimodal Datasets: Combining text, images, user behavior data, etc.</li>
+        <li>Cross-lingual Challenges: Expanding suicide risk detection to multiple languages.</li>
+        <li>Temporal Analysis: Providing historical user data to predict the evolution of suicide risk.</li>
+        <li>Interpretability Requirements: Emphasizing the explainability and transparency of model decisions.</li>
+        <li>Evaluation Mechanisms: Designing evaluation mechanisms that simulate real-time social media environments.</li>
+        <li>Intervention Strategies: Focusing on designing effective intervention strategies in addition to detection.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>The IEEE BigData 2024@suicide detection on social media competition attracted research teams from around the world, showcasing the potential of natural language processing and machine learning in addressing critical social issues. Participating teams tackled challenges such as data scarcity and class imbalance through innovative methods, exploring the performance of both traditional models and large language models in suicide risk detection tasks. Future competitions will continue to drive development in this field, focusing on innovations in multimodal, cross-lingual, and real-time intervention aspects.</p>
+</body>
+</html>
