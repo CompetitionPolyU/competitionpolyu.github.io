@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE BigData 2024@Suicide Detection on Social Media Competition Summary Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>IEEE BigData 2024@Suicide Detection on Social Media Competition Summary Report</h1>
+
+    <h2>1. Competition Background</h2>
+    <p>The IEEE BigData 2024@Suicide Detection on Social Media competition aims to leverage advanced natural language processing and machine learning techniques to detect suicide risk on social media. The core objective of this challenge is to develop models capable of accurately classifying suicide risk levels in social media posts. The competition provided a dataset containing 500 labeled samples and 1500 unlabeled samples. Participants needed to address issues such as data scarcity and class imbalance while exploring the effectiveness of various model architectures.</p>
+
+    <h2>2. Participation Overview</h2>
+    <ul>
+        <li>Number of registered teams: 47</li>
+        <li>Number of teams participating in the leaderboard: 21</li>
+        <li>Number of teams participating in the final evaluation: 13</li>
+        <li>Number of teams invited to submit papers: 8</li>
+    </ul>
+
+    <h2>3. Summary of Submitted Papers</h2>
+    <h3>a) Methods for handling limited labeled data (500 samples) and utilizing unlabeled data (1500 samples):</h3>
+    <ul>
+        <li>Semi-supervised learning methods</li>
+        <li>Data augmentation techniques</li>
+        <li>Transfer learning</li>
+        <li>Fine-tuning pre-trained models</li>
+    </ul>
+
+    <h3>b) Strategies for addressing dataset label imbalance:</h3>
+    <ul>
+        <li>Oversampling/undersampling techniques</li>
+        <li>Class weight adjustment</li>
+        <li>Focal loss function</li>
+        <li>Ensemble learning methods</li>
+    </ul>
+
+    <h3>c) Model selection and optimization:</h3>
+    <table>
+        <tr>
+            <th>Model Type</th>
+            <th>Number of Teams</th>
+            <th>Main Models</th>
+        </tr>
+        <tr>
+            <td>Traditional Models</td>
+            <td>X</td>
+            <td>RoBERTa, DepRoBERTa, mental-longformer, SVM...</td>
+        </tr>
+        <tr>
+            <td>Large Language Models</td>
+            <td>Y</td>
+            <td>GPT-4o, Phi 3.5, Qwen2-max, Claude-3.5-Sonnet, bloomz-3b, Qwen2-72B-Instruct, Llama3-8B, Llama3.1-8B, Gemma2-9B, GPT-4, GPT-4-mini, GPT-4-turbo, LLaMA 3.1-8B, GEMMA 2-9B</td>
+        </tr>
+    </table>
+
+    <h3>LLMs Used:</h3>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Model</th>
+        </tr>
+        <tr>
+            <td>Prompt engineering (in-context learning)</td>
+            <td>GPT-4o, Qwen2-72B-Instruct, Qwen2-max, Claude-3.5-Sonnet, GPT-4, GPT-4-mini, GPT-4-turbo</td>
+        </tr>
+        <tr>
+            <td>Finetune</td>
+            <td>Llama3-8B, Llama3.1-8B, Gemma2-9B, LLaMA 3.1-8B, GEMMA 2-9B and GEMMA 2-27B (not effective)</td>
+        </tr>
+    </table>
+
+    <p>Widely used and effective large model: gpt-4-turbo</p>
+
+    <h3>Large Models vs Traditional Models:</h3>
+    <p>[Analysis based on actual data is needed here to determine which type of model performs better]</p>
+
+    <h3>Large Model Improvement Strategies:</h3>
+    <ul>
+        <li>Direct use (few-shot learning)</li>
+        <li>Fine-tuning</li>
+        <li>Combining with other features (e.g., TF-IDF, text length)</li>
+    </ul>
+
+    <h2>4. Core Challenges and Future Competition Design</h2>
+    <h3>Core Challenges:</h3>
+    <ol>
+        <li>Data Scarcity: Difficulty in obtaining high-quality, large-scale annotated data.</li>
+        <li>Class Imbalance: Uneven distribution of different suicide risk levels in real-world scenarios.</li>
+        <li>Subtlety and Context Dependence of Text: Suicidal intent may be expressed in subtle or indirect ways.</li>
+        <li>Cross-cultural and Linguistic Differences: Expressions of suicidal thoughts may vary across cultures and languages.</li>
+    </ol>
+
+    <h3>Future Competition Design:</h3>
+    <ol>
+        <li>Multimodal Datasets: Combining text, images, user behavior data, etc.</li>
+        <li>Cross-lingual Challenges: Extending suicide risk detection to multiple languages.</li>
+        <li>Temporal Analysis: Providing historical user data to predict the evolution of suicide risk.</li>
+        <li>Interpretability Requirements: Emphasizing the explainability and transparency of model decisions.</li>
+        <li>Evaluation Mechanism: Designing evaluation mechanisms that simulate real-time social media environments.</li>
+        <li>Intervention Strategies: Focusing on designing effective intervention strategies in addition to detection.</li>
+    </ol>
+
+    <h2>Rewards and Certificates</h2>
+    <p>Rewards will be arranged for the top three teams. Each team will receive a certificate of participation. Due to limited resources, teams requiring certificates should send us an email. We will create the certificates and send them via email.</p>
+
+    <p>We appreciate the enthusiastic participation, work, and contributions of all teams.</p>
+</body>
+</html>
