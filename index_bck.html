@@ -1,138 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IEEE BigData 2024@Detection of Suicide Risk on Social Media Competition Summary</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge Website</title>
+<style>
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    
+    thead th {
+        background-color: #f2f2f2;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    tbody tr:hover {
+        background-color: #eaeaea;
+    }
+    
+    
+    ul {
+        list-style-type: none; /* 去掉默认的列表符号 */
+        padding: 0; /* 去掉默认的内边距 */
+        font-family: Arial, sans-serif; /* 设置字体 */
+    }
+
+    li {
+        margin-bottom: 10px; /* 设置列表项之间的间距 */
+        padding-left: 4ch; /* 使用字符单位ch来模拟两个空格的缩进 */
+    }
+
+    li:before {
+        content: '• '; /* 在每个列表项前添加一个点 */
+        color: #333; /* 点的颜色 */
+        font-weight: bold; /* 点的字体加粗 */
+        display: inline-block; /* 使其成为行内块元素 */
+        width: 1em; /* 设置宽度 */
+        margin-left: -1em; /* 将点向左拉，与文本对齐 */
+    }
+  
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .accordion:after {
+        content: '\002B'; /* Unicode character for "plus" sign (+) */
+        color: #777;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212"; /* Unicode character for "minus" sign (-) */
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    
+    /* Style for clickable terms */
+    .clickable {
+        text-decoration: underline;
+        color: #0645AD; /* Example color: hyperlink blue */
+        cursor: pointer;
+        padding: 3px; /* Increase clickable area */
+    }
+
+    /* Styles for the modal background and content */
+    .modal-bg {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black with opacity */
+        padding-top: 100px; /* Location of the box */
+    }
+    
+    /* Modal Content Box with scroll */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-height: 50vh; /* 70% of the viewport height */
+        overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+    }
+    
+    <!--
+    /* Modal Content Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+    -->
+
+    /* The Close Button */
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Disabled button style */
+    .button-disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+	
+    .container {
+            width: 90%;
             margin: 0 auto;
             padding: 20px;
         }
-        h1, h2 {
-            color: #2c3e50;
+        h1 {
+            text-align: center;
         }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .highlight {
+        .collapsible {
+            cursor: pointer;
+            padding: 15px 20px;
             background-color: #f9f9f9;
-            padding: 10px;
-            border-left: 4px solid #2c3e50;
-            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin: 10px 0;
         }
-    </style>
+        .collapsible:hover {
+            background-color: #f1f1f1;
+        }
+        .content {
+            padding: 15px 20px;
+            display: none;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+        .faq-item {
+            margin: 10px 0;
+        }
+        .faq-question {
+            cursor: pointer;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .faq-question:hover {
+            background-color: #f1f1f1;
+        }
+        .faq-answer {
+            display: none;
+            padding: 15px 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+</style>
 </head>
 <body>
-    <h1>IEEE BigData 2024@Detection of Suicide Risk on Social Media Competition Summary</h1>
 
-    <h2>1. Competition Background</h2>
-    <p>The IEEE BigData 2024@suicide detection on social media competition aims to leverage advanced natural language processing and machine learning techniques to detect suicide risk on social media. The core objective of this challenge is to develop models capable of accurately classifying the level of suicide risk in social media posts. The competition provided a dataset containing 500 labeled samples and 1500 unlabeled samples, requiring participants to address issues such as data scarcity and class imbalance while exploring the effectiveness of various model architectures.</p>
+<h2>IEEE BigData 2024 Cup: Detection of suicide risk on social media</h2>
+<p>
+The IEEE BigData 2024 Cup Challenges, centered on suicide ideation detection, is an important activity that has been held annually since 2013 under the auspices of the IEEE International Conference on Big Data (https://bigdataieee.org/BigData2024/index.html). This competition will span several months, culminating with the announcement of the winners at the IEEE BigData 2024 conference, scheduled for December 15-18, 2024, in Washington DC, USA. Commemorating this milestone anniversary, the challenge is centered around social media activity; specifically, participants are tasked with detecting the level of suicide risk associated with posts made by users on these platforms. This endeavor highlights the growing significance of big data in mental health and the crucial role of predictive analytics in proactive intervention strategies.
+</p>
+<button class="accordion">Overview</button>
+<div class="panel">
+  <p>The topic of this year's data science competition is suicide risk detection from Reddit posts. The dataset contains 2,000 Reddit posts, with 500 posts labeled with four suicide risk levels (indicator, ideation, behavior, attempt) and 1,500 unlabeled posts. Each post is represented by its text content, and the task for the competition participants is to develop a predictive model that can accurately classify the posts into the four suicide risk levels based on the posts. Such a model could play a crucial role in identifying individuals at risk of suicide and providing timely intervention and support.
+  <br>
+  <br>Authors of selected challenge reports will be invited to extend their work for publication in the conference proceedings (after reviews by the Organizing Committee) and presentation at the conference. The invited teams will be chosen based on their final rank, the innovativeness of their approach, and the quality of the submitted report.
+  </p>
+</div>
+<button class="accordion">Task description</button>
+<div class="panel">
+  <p>The task in this challenge is to design an accurate method for classifying Reddit posts into four suicide risk levels: indicator, ideation, behavior, and attempt. The available training data contains 500 instances (Reddit posts) with labeled suicide risk levels and 1500 unlabeled Reddit posts. Each instance represents a Reddit post, and the text content of the post is provided. The test data containing 100 instances is also provided in the same format.
+  <br>  
+  <br><strong>Leaderboard:</strong> The quality of predictions will be evaluated using the weighted F1 score, which considers both precision and recall while accounting for the class imbalance. Preliminary results will be published or updated on the public leaderboard each morning. 
+  <br>
+  <br>Please submit your predictions for the test set as a .xlsx file containing exactly 100 rows via <Strong>prediction file submission section</Strong>, each with index, a predictive label and its associated probability distribution (e.g., [0.29, 0.62, 0.04, 0.05]). The submission should include three columns per row: 1. index, 2. The predicted suicide risk level label (chosen from {indicator, ideation, behavior, attempt}), and 3. The probability distribution corresponding to this prediction. Ensure that the order of your predictions matches the order of the test set instances. Here is an example:
+  <br>
+  <table>
+    <thead>
+      <tr>
+	<th>index</th>
+        <th>suicide risk</th>
+        <th>probability distribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+	<td>0</td>
+        <td>ideation</td>
+        <td>[0.29, 0.62, 0.04, 0.05]</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
 
-    <h2>2. Participation Overview</h2>
-    <ul>
-        <li>Number of registered teams: 47</li>
-        <li>Number of teams participating in the leaderboard: 21</li>
-        <li>Number of teams participating in the final evaluation: 13</li>
-        <li>Number of teams invited to submit papers: To be determined</li>
+  <br><strong>Final evaluation:</strong> The final evaluation will be conducted after the competition ends, at a time to be announced later, using a new set of 100 posts. The evaluation will still utilize the weighted F1 score. Only teams that submit their source code and a report describing their approach by the deadline will qualify for the final evaluation. Reports and source code will be submitted via Google Drive or Baidu Drive. We will notify you in advance by email about the submission instructions.
+</p>
+</div>
+
+<button class="accordion">Prediction file submission</button>
+<div class="panel">
+<p>
+    Please submit the prediction file created by your team. Multiple submissions are permitted. The file format should be .xlsx, and the file name must be: YourTeamName.xlsx. The scores of the uploaded prediction results will be updated on the leaderboard the following day. For a detailed explanation of the content in your prediction file, please refer to the 'Task Description' section.
+</p>
+<form id="uploadForm">
+    <input type="file" id="fileInput" name="file" required>
+    <button type="submit">Upload</button>
+</form>
+<progress id="uploadProgress" value="0" max="100" style="width: 100%; display: none;"></progress>
+<p id="progressText" style="text-align: center;"></p>
+</div>
+
+<script>
+document.getElementById('uploadForm').onsubmit = function(event) {
+    event.preventDefault();
+
+    const fileInput = document.getElementById('fileInput');
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    const progress = document.getElementById('uploadProgress');
+    const progressText = document.getElementById('progressText');
+    progress.style.display = 'block';
+    progress.value = 0;
+    progressText.innerText = 'Uploading...';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://21qd099261.vicp.fun/upload', true);
+
+    xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+            const percentComplete = (event.loaded / event.total) * 100;
+            progress.value = percentComplete;
+            progressText.innerText = `Upload progress: ${percentComplete.toFixed(2)}%`;
+        }
+    };
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert('File uploaded successfully!');
+            progress.style.display = 'none';
+            progressText.innerText = '';
+        } else {
+            alert('Error uploading file.');
+            progress.style.display = 'none';
+            progressText.innerText = '';
+        }
+    };
+
+    xhr.onerror = function() {
+        alert('Error uploading file.');
+        progress.style.display = 'none';
+        progressText.innerText = '';
+    };
+
+    xhr.send(formData);
+};
+</script>
+
+<button class="accordion">Invitation to submit papers</button>
+<div class="panel">
+<p>
+Based on the submitted works, we have evaluated the teams according to the following selection criteria:
+        <ul>
+        <li>Model performance (30%)</li>
+        <li>Approach innovation (40%)</li>
+        <li>Report quality (30%)</li>
+        </ul>
+Following this evaluation, we are pleased to invite the top 10 teams (we have extended 2 additional slots) to submit papers for the conference. These teams are:
+The Dual(75.436), BioNLP@WCM(74.389), Detection of Suicide(71.315), mukumuku(71.015), Calculators(70.523), EEEAT(67.967), BNU AI and Mental Health(66.824), LifeWatcher(65.584), kubapok(64.653), MIDAS(62.449). 
+<ul>	
+<li>Paper submission system: https://wi-lab.com/cyberchair/2024/bigdata24/index.php (The chairs of IEEE BigData conference will add the link of big data cup paper submission later in the paper submission system)</li>
+<li>Paper format: It is the same as the main conference paper, 10 pages double columns IEEE format.</li>
+</ul>
+</p>
+</div>
+	
+<button class="accordion">Leaderboard</button>
+<div class="panel">
+<p>
+</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Team Name</th>
+        <th>Final Score(Model performance in the final evaluation)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+       <td>1</td>
+        <td>Detection of Suicide</td>
+        <td>0.7605</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>kubapok</td>
+        <td>0.7551</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>mukumuku</td>
+        <td>0.7505</td>
+      </tr>
+      <tr>
+       <td>4</td>
+        <td>BioNLP@WCM</td>
+        <td>0.7463</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Calculators</td>
+        <td>0.7341</td>
+      </tr>
+      <tr>
+       <td>6</td>
+        <td>The Dual</td>
+        <td>0.7312</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>BNU AI and Mental Health</td>
+        <td>0.7108</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>MindFlow</td>
+        <td>0.7072</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>EEEAT</td>
+        <td>0.6989</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>MIDAS</td>
+        <td>0.6983</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>PotatoTomato</td>
+        <td>0.6915</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>LifeWatcher</td>
+        <td>0.5528</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Data Science and Decision Making Lab BGU</td>
+        <td>0.5496</td>
+      </tr>
+    </tbody>
+  </table>
+<p>
+Cash prizes will be awarded to top-3 teams. We will contact the winning teams later.
+</p>
+</div>
+<button class="accordion" onclick="window.location.href='https://competitionpolyu.github.io/report.html'">Competition summary</button>
+<button class="accordion">Schedule</button>
+<div class="panel">
+  <p>
+  <ul>
+  <li> Start of the competition, the task is revealed, May 1, 2024</li>
+  <li> Deadline for contest teams to submit email of intent, June 10, 2024</li>
+  <li> Deadline for submitting the source code & the detailed report of the solutions, End of the competition, Aug 31, 2024</li>
+  <li> Announcement of winning teams, Sending invitations for submitting papers for the special track at the lEEE BigData 2024 conference, Sept 15, 2024</li>
+  <li> Deadline for submitting invited papers, Oct 10, 2024</li>
+  <li> Notifcation of paper acceptance, Oct 30, 2024</li>
+  <li> Camera-ready of accepted papers due, Nov 15, 2024</li>
+  <li> The lEEE BigData 2024 conference, Washington DC, USA, Dec 15-18, 2024</li>
+  </ul>
+  </p>
+</div>
+
+<button class="accordion">Awards</button>
+<div class="panel">
+  <p>Attractive cash prizes will be awarded to the top-performing teams.
+  <ul>
+    <li>1000 USD for the winning solution</li>
+    <li>500 USD for the 2nd place solution</li>
+    <li>250 USD for the 3rd place solution</li>
     </ul>
+  </p>
+</div>
 
-    <h2>3. Summary of Submitted Papers</h2>
-    <h3>a) Methods for utilizing limited labeled data (500 samples) and unlabeled data (1500 samples):</h3>
-    <ul>
-        <li>Semi-supervised learning methods (pseudo-labels)</li>
-        <li>Manual annotation</li>
-        <li>Data augmentation</li>
-    </ul>
+<button class="accordion">Enroll</button>
+<div class="panel">
+<p>
+Once you have accepted the Data Usage Agreement, please send us your team's information in the following format via email. We will respond to your inquiry and provide you with the dataset:
+<ul>
+<li>Team name.</li>
+<li>List of Team Members with Affiliations.</li>
+<li>Contact Person and Email Address.</li>
+</ul>
+</p>
+<div style="display: flex; align-items: center; margin-top: 20px;">
+    <input type="checkbox" id="termsCheckbox" name="termsCheckbox" style="margin-right: 10px;">
+    <label for="termsCheckbox">We accept Competition <span class="clickable" onclick="openModal()">Data Usage Agreement</span>*</label>
+</div>
 
-    <h3>b) Strategies for addressing dataset label imbalance:</h3>
-    <ul>
-        <li>Oversampling/undersampling techniques</li>
-        <li>Class weight adjustment</li>
-        <li>Custom loss function design</li>
-    </ul>
-
-    <h3>c) Model selection and optimization:</h3>
-    <table>
-        <tr>
-            <th>Model Type</th>
-            <th>Number of Teams</th>
-            <th>Main Models</th>
-        </tr>
-        <tr>
-            <td>Base Language Models</td>
-            <td>11</td>
-            <td>BERT, RoBERTa, DeBERTa, mental-longformer, SVM…</td>
-        </tr>
-        <tr>
-            <td>Large Language Models</td>
-            <td>5</td>
-            <td>Phi 3.5, Claude-3.5-Sonnet, bloomz-3b, Qwen2-72B-Instruct, Qwen2-max, Llama 3-8B, Llama 3.1-8B, Gemma 2-9B, Gemma 2-27B, GPT-4, GPT-4o, GPT-4-mini, GPT-4-turbo</td>
-        </tr>
-    </table>
-
-    <h3>LLMs Used:</h3>
-    <table>
-        <tr>
-            <th>Category</th>
-            <th>Model</th>
-        </tr>
-        <tr>
-            <td>Prompt engineering (in-context learning)</td>
-            <td>Qwen2-72B-Instruct, Qwen2-max, Claude-3.5-Sonnet, GPT-4, GPT-4o, GPT-4-mini, GPT-4-turbo</td>
-        </tr>
-        <tr>
-            <td>Finetune</td>
-            <td>Llama 3-8B, Llama 3.1-8B, Gemma 2-9B, Gemma 2-27B</td>
-        </tr>
-    </table>
-
-    <div class="highlight">
-        <h3>Preliminary Conclusions:</h3>
-        <p>Large Language Models vs Base Language Models: Among large language models, open-source Llama is the most popular, followed by Gemma 2. Commercial models are dominated by GPT-4. Approaches based on base language models primarily use RoBERTa-based models. Based on the results submitted by several teams, large language models can achieve good performance with fewer improvements, suggesting a higher performance floor. However, due to limited improvement methods for large language models, combining large language models with base language models offers more room for innovation. Ultimately, regardless of the approach, achieving good results requires novel and well-designed improvements.</p>
+<!-- Enroll Button -->
+<button id="enrollButton" disabled style="margin-top: 20px;" onclick="openEnrollModal()">Enroll</button>
+<p>
+</p>
+<!-- Data Usage Agreement Modal -->
+<div id="myModal" class="modal-bg">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h1>Data Usage Agreement</h1>
+        <p>In consideration of the promises and mutual covenants contained in this Agreement, Recipient agree to the terms and conditions below.
+        <br>
+		<br>Article 1. Data Set and Grant of License
+        <br>
+		<br>1.1 The Dataset has been compiled by members of The Hong Kong Polytechnic University and comprises publicly available data from Reddit with the purpose of detecting users at suicide risk.
+		<br>
+		<br>1.2 The Hong Kong Polytechnic University grants Recipient a non-exclusive license to use the Data Set solely for not-for-profit educational and/or research purposes. Uses of the Data Set include, but are not limited, to viewing parts or the whole of the Data Set; comparing data or content from the Data Set with data or content in other data sets; verifying research results with the Data Set; and extracting any part of the Data Set for use in Recipient publications or Recipient research in accordance with the terms of this Agreement.
+		<br>
+		<br>Article 2. Recipient Representations
+		<br>
+		<br>2.1 Recipient represents that it is not bound by any pre-existing legal obligations or other applicable law(s) that prevent Recipient from receiving or using the Data Set.
+		<br>
+		<br>2.2 Recipient shall provide proper citation and acknowledgement to The Hong Kong Polytechnic University as the source of the Data Set in Recipient publications, presentations or other public dissemination of work utilizing the Data Set.
+		<br>
+		<br>@article{li2022suicide,
+        <br>title={Suicide risk level prediction and suicide trigger detection: A benchmark dataset},
+        <br>author={Li, Jun and Chen, Xinhong and Lin, Zehang and Yang, Kaiqi and Leong, Hong Va and Yu, Nancy Xiaonan and Li, Qing},
+        <br>journal={HKIE Transactions Hong Kong Institution of Engineers},
+        <br>volume={29},
+        <br>number={4},
+        <br>pages={268--282},
+        <br>year={2022},
+        <br>publisher={Taylor \& Francis}
+        <br>}
+		<br>
+		<br>2.3 Recipient shall use Data Set for non-commercial, educational and/or research purposes only.
+		<br>
+		<br>2.4 Recipient shall provide The Hong Kong Polytechnic University with immediate notice in writing of any breach of this Agreement, and if identification of any user in the Data Set becomes known to Recipient, Recipient shall also immediately use its reasonable best efforts to mitigate any harm or damage from such breach.
+		<br>
+		<br>Article 3. Recipient Restrictions
+		<br>
+		<br>3.1 Recipient shall not deduce or obtain information from the Data Set that results in Recipient or any third party(ies) directly or indirectly identifying any research subjects with or without the aid of other information acquired elsewhere.
+		<br>
+		<br>3.2 Recipient shall not use the Data Set in any way prohibited by applicable local, state or federal laws.
+		<br>
+		<br>3.3 Recipient shall not modify the Data Set, except as allowed hereunder.
+		<br>
+		<br>3.4 Recipient shall not transfer any part of the Data Set to any third party without prior written consent from The Hong Kong Polytechnic University.
+		<br>
+		<br>3.5 Recipient shall not make or use the Data Set for any commercial purpose.</p>
     </div>
+</div>
 
-    <h3>Large Model Improvement Strategies:</h3>
-    <ol>
-        <li>In-context learning</li>
-        <li>Finetuning</li>
-    </ol>
+<!-- Enroll Email Modal -->
+<div id="enrollEmailModal" class="modal-bg">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEnrollModal()">&times;</span>
+        <p>Registration email address: <a href="mailto:enroll@example.com">ieee.bigdata2024@outlook.com</a></p>
+    </div>
+</div>
+</div>
 
-    <h2>4. Core Challenges and Future Outlook</h2>
-    <h3>Core Challenges:</h3>
-    <ol>
-        <li>Data Scarcity: Difficulty in obtaining high-quality, large-scale annotated data.</li>
-        <li>Class Imbalance: Uneven distribution of different risk levels of suicidal behavior in reality.</li>
-        <li>Subtlety and Context Dependence of Text: Suicidal intent may be expressed in subtle or indirect ways.</li>
-        <li>Cross-cultural and Linguistic Differences: Expression of suicidal thoughts may vary across cultures and languages.</li>
-    </ol>
+<script>
+    // Get the modals
+    var termsModal = document.getElementById('myModal');
+    var enrollEmailModal = document.getElementById('enrollEmailModal');
+    var enrollButton = document.getElementById('enrollButton');
+    var termsCheckbox = document.getElementById('termsCheckbox');
 
-    <h3>Future Competition Design:</h3>
-    <ol>
-        <li>Multimodal Datasets: Combining text, images, user behavior data, etc.</li>
-        <li>Cross-lingual Challenges: Expanding suicide risk detection to multiple languages.</li>
-        <li>Temporal Analysis: Providing historical user data to predict the evolution of suicide risk.</li>
-        <li>Interpretability Requirements: Emphasizing the explainability and transparency of model decisions.</li>
-        <li>Evaluation Mechanisms: Designing evaluation mechanisms that simulate real-time social media environments.</li>
-        <li>Intervention Strategies: Focusing on designing effective intervention strategies in addition to detection.</li>
-    </ol>
-    
-    <h2>Conclusion</h2>
-    <p>The IEEE BigData 2024@suicide detection on social media competition attracted research teams from around the world, showcasing the potential of natural language processing and machine learning in addressing critical social issues. Participating teams tackled challenges such as data scarcity and class imbalance through innovative methods, exploring the performance of both base language models and large language models in suicide risk detection tasks. Future competitions will continue to drive development in this field, focusing on innovations in multimodal, cross-lingual, and real-time intervention aspects.</p>
-    
+    // Function to open the terms modal
+    function openModal() {
+        termsModal.style.display = "block";
+    }
+
+    // Function to close the terms modal and uncheck the checkbox
+    function closeModal() {
+        termsModal.style.display = "none";
+        termsCheckbox.checked = false; // Uncheck the checkbox when the modal is closed
+        enrollButton.disabled = true; // Disable the enroll button
+        enrollButton.classList.add('button-disabled'); // Add the disabled button styling
+    }
+
+    // Function to open the enroll email modal
+    function openEnrollModal() {
+        if (termsCheckbox.checked) {
+            enrollEmailModal.style.display = "block";
+        }
+    }
+
+    // Function to close the enroll email modal and uncheck the checkbox
+    function closeEnrollModal() {
+        enrollEmailModal.style.display = "none";
+        termsCheckbox.checked = false; // Uncheck the checkbox when the modal is closed
+        enrollButton.disabled = true; // Disable the enroll button
+        enrollButton.classList.add('button-disabled'); // Add the disabled button styling
+    }
+
+    // Enable or Disable Enroll button based on Terms Checkbox
+    termsCheckbox.addEventListener('change', function() {
+        enrollButton.disabled = !this.checked;
+        if (this.checked) {
+            enrollButton.classList.remove('button-disabled');
+        } else {
+            enrollButton.classList.add('button-disabled');
+        }
+    });
+
+    // Click anywhere outside of the modals to close them
+    window.onclick = function(event) {
+        if (event.target == termsModal) {
+            closeModal();
+        } else if (event.target == enrollEmailModal) {
+            closeEnrollModal();
+        }
+    }
+</script>
+
+
+<button class="accordion">Organizing committee</button>
+<div class="panel">
+  <p>
+  <ul>
+    <li>Prof. Li Qing, The Hong Kong Polytechnic University</li>
+    <li>Dr. Hong Va Leong, The Hong Kong Polytechnic University</li>
+    <li>Li Jun, The Hong Kong Polytechnic University</li>
+    <li>Wang Xiangmeng, University of Technology Sydney</li>
+    <li>Yan Yifei, City University of Hong Kong</li>
+    <li>Zhang Ziyan, The Hong Kong Polytechnic University</li>
+    </ul>
+  </p>
+</div>
+
+<button class="accordion">Contact</button>
+<div class="panel">
+  <p> For registration inquiries, contact Zhang Ziyan at ariana.zhang@connect.polyu.hk </p>
+  <p> For inquiries about competition rankings, contact Yan Yifei at yfyan8-c@my.cityu.edu.hk </p>
+  <p> For other inquiries, contact Alex at hialexlee@hotmail.com </p>
+</div>
+
+
+<!-- FAQ Section -->
+<button class="accordion">FAQ</button>
+<div class="panel">
+    <div class="faq-item">
+        <div class="faq-question">Q: On the challenge website it says "Deadline for contest teams to submit letter of intent, June 10, 2024". I could, however, not find a draft/template for the letter of intent.</div>
+        <div class="faq-answer" style="display: none;">A: Participants do not need to submit a letter of intent. To register, simply send us an email by June 10, 2024. Once you receive an email with the dataset link, your registration is confirmed.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Q: I uploaded our team's predictions to the challenge website earlier today, but the leaderboard score hasn't been updated yet.</div>
+        <div class="faq-answer" style="display: none;">A: We typically update the leaderboard daily. If you have any concerns, please notify us by email, and we will update the score on the leaderboard immediately.</div>
+    </div>
+    <div class="faq-item">
+	<div class="faq-question">Q: May I know how many attempts each team has for predicting the test partition labels.</div>
+	<div class="faq-answer" style="display: none;">A: Teams are free to submit their prediction results as many times as needed until they achieve satisfactory performance.</div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.accordion').forEach((accordion) => {
+    accordion.addEventListener('click', function() {
+        this.classList.toggle('active');
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            // 设置maxHeight为scrollHeight可以确保内容完全可见
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+});
+
+// 处理FAQ问题的点击事件，确保不影响Accordion的行为
+document.querySelectorAll('.faq-question').forEach((faqQuestion) => {
+    faqQuestion.addEventListener('click', (event) => {
+        event.stopPropagation(); // 阻止事件冒泡
+
+        const faqAnswer = faqQuestion.nextElementSibling;
+        faqAnswer.style.display = (faqAnswer.style.display === 'block' ? 'none' : 'block');
+
+        // 重新计算整个panel的高度以适应内容的变化
+        const panel = faqQuestion.closest('.panel');
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            // 必须在下一帧中重新设置maxHeight，以确保动态内容的高度变化被计算
+            setTimeout(() => {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }, 0);
+        }
+    });
+});
+</script>
+
 </body>
 </html>
